@@ -9,41 +9,42 @@ public class Foto {
     @Id
     String id;
 
-    Integer antall;
-    String varenavn;
-    Integer sortering;
+    String tittel;
+    String fotograf;
+    String contentType;
+
 
     public Foto(){
     }
 
-    public Foto(Integer antall, String varenavn, Integer sortering) {
-        this.antall = antall;
-        this.varenavn = varenavn;
-        this.sortering = sortering;
+    public Foto(String tittel, String fotograf) {
+        this.tittel = tittel;
+        this.fotograf = fotograf;
+
     }
 
-    public Integer getAntall() {
-        return antall;
+    public String getTittel() {
+        return tittel;
     }
 
-    public void setAntall(Integer antall) {
-        this.antall = antall;
+    public void setTittel(String tittel) {
+        this.tittel = tittel;
     }
 
-    public String getVarenavn() {
-        return varenavn;
+    public String getFotograf() {
+        return fotograf;
     }
 
-    public void setVarenavn(String varenavn) {
-        this.varenavn = varenavn;
+    public void setFotograf(String fotograf) {
+        this.fotograf = fotograf;
     }
 
-    public Integer getSortering() {
-        return sortering;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setSortering(Integer sortering) {
-        this.sortering = sortering;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public String getId() {
