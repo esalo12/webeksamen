@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8" />
+
+
+    <title>Rediger</title>
+</head>
+<body>
+
+<form th:action="@{/}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <p>Sett tittel</p>
+    <input type="text" name="tittel" />
+    <p>Last opp bilde</p>
+    <input type="file" name="file" value="Velg" />
+    <br />
+
+    <input type="submit" value="Lagre"/>
+</form>
+
+</body>
+</html>
