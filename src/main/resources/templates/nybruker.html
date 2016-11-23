@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/nybruker}" method="post">
+    <div><label> Fornavn: <input type="text" name="fornavn"/> </label></div>
+    <div><label> Etternavn: <input type="text" name="etternavn"/> </label></div>
+    <div><label> Brukernavn: <input type="text" name="brukernavn"/> </label></div>
+    <div><label> Passord : <input type="password" name="passord"/> </label></div>
+    <div><input type="submit" value="Opprett"/></div>
+</form>
+
+</body>
+</html>
