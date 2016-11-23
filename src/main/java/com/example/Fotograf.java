@@ -7,15 +7,19 @@ public class Fotograf {
     @Id
     String id;
 
-    String navn;
-    String bruker;
+    String fornavn;
+    String etternavn;
+    String brukernavn;
     String passord;
 
     public Fotograf(){
     }
 
-    public Fotograf(String navn) {
-        this.navn = navn;
+    public Fotograf(String fornavn, String etternavn, String bruker, String passord) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.brukernavn = bruker;
+        this.passord = passord;
     }
 
     public String getId() {
@@ -26,20 +30,28 @@ public class Fotograf {
         this.id = id;
     }
 
-    public String getNavn() {
-        return navn;
+    public String getFornavn() {
+        return fornavn;
     }
 
-    public void setNavn(String navn) {
-        this.navn = navn;
+    public void setFornavn(String fornavn) {
+        this.fornavn = fornavn;
     }
 
-    public String getBruker() {
-        return bruker;
+    public String getEtternavn() {
+        return etternavn;
     }
 
-    public void setBruker(String bruker) {
-        this.bruker = bruker;
+    public void setEtternavn(String etternavn) {
+        this.etternavn = etternavn;
+    }
+
+    public String getBrukernavn() {
+        return brukernavn;
+    }
+
+    public void setBrukernavn(String brukernavn) {
+        this.brukernavn = brukernavn;
     }
 
     public String getPassord() {

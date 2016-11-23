@@ -14,6 +14,7 @@ import static com.mongodb.client.model.Filters.and;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -21,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository());
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/bilde", "/rediger").permitAll()
+                .antMatchers("/", "/home", "/bilde", "/rediger", "/nybruker").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -35,13 +36,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setSessionAttributeName("_csrf");
         return repository;
-    }
-
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("pass").roles("USER");
     }
 }
