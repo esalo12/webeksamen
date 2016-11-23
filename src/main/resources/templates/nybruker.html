@@ -5,6 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+<div th:if="${error}">
+    Brukernavnet finnes allerede!
+</div>
+<div th:if="${lagret}">
+    Bruker opprettet!
+    <br />
+    <a href="/login">Logg inn</a>
+</div>
 <form th:action="@{/nybruker}" method="post">
     <div><label> Fornavn: <input type="text" name="fornavn"/> </label></div>
     <div><label> Etternavn: <input type="text" name="etternavn"/> </label></div>
@@ -12,6 +20,5 @@
     <div><label> Passord : <input type="password" name="passord"/> </label></div>
     <div><input type="submit" value="Opprett"/></div>
 </form>
-
 </body>
 </html>
