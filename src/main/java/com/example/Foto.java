@@ -2,6 +2,8 @@ package com.example;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 // Klassen som brukes av denne tjenesten.
 public class Foto {
 
@@ -10,17 +12,17 @@ public class Foto {
     String id;
 
     String tittel;
-    String fotograf;
+    String fotografId;
     String contentType;
+    Date dato;
 
 
     public Foto(){
     }
 
-    public Foto(String tittel, String fotograf) {
+    public Foto(String tittel) {
         this.tittel = tittel;
-        this.fotograf = fotograf;
-
+        this.fotografId = fotografId;
     }
 
     public String getTittel() {
@@ -31,12 +33,20 @@ public class Foto {
         this.tittel = tittel;
     }
 
-    public String getFotograf() {
-        return fotograf;
+    public String getFotografId() {
+        return fotografId;
     }
 
-    public void setFotograf(String fotograf) {
-        this.fotograf = fotograf;
+    public void setFotografId(String fotografId) {
+        this.fotografId = fotografId;
+    }
+
+    public Date getDato() {
+        return dato;
+    }
+
+    public void setDato() {
+        this.dato = new Date();
     }
 
     public String getContentType() {

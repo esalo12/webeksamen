@@ -2,6 +2,8 @@ package com.example;
 
 import com.example.Storage.StorageProperties;
 import com.example.Storage.StorageService;
+import com.mongodb.Mongo;
+import com.mongodb.client.MongoCollection;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
