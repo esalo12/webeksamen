@@ -7,16 +7,21 @@
         /*<![CDATA[*/
             function sok() {
                 var sokeord = document.getElementById("sokefelt").value;
-
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.onreadystatechange = function () {
+                    var liste = document.getElementById("liste");
                     if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-
+                        json = JSON.parse(xmlHttp.responseText);
+                        json.forEach(function (entry) {
+                            var li = document.createElement("li");
+                            li.innerHTML= entry.tittel;
+                            liste.appendChild(li);
+                        });
                     }
-                }
-                xmlHttp.open("GET", "/sok?=sokeord"+sokeord, true);
+                };
+                xmlHttp.open("GET", "/sok?sokeord="+sokeord, true);
+                xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xmlHttp.send();
-
             }
         /*]]>*/
     </script>
@@ -28,8 +33,7 @@
         <input type="text" id="sokefelt"/>
         <input type="submit" value="Søk" onclick="sok()"/>
 
-    <ul id="fototListe">
-
+    <ul id="liste">
     </ul>
 </body>
 </html>

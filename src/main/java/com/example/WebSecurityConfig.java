@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository());
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/bilde", "/nybruker").permitAll()
+                .antMatchers("/", "/home", "/bilde", "/sok","/nybruker").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

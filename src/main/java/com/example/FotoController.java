@@ -11,13 +11,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
@@ -36,6 +37,12 @@ public class FotoController{
     @Autowired
     FotografRepository fotografRepository;
 
+    @RequestMapping(path = "/sok", method = RequestMethod.GET)
+    public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
+        System.out.println(sokeord);
+        return fotoRepository.findAll();
+    }
+
     @GetMapping("/")
     public String listUploadedFiles(Model model) throws IOException {
         model.addAttribute("files", storageService
@@ -49,6 +56,8 @@ public class FotoController{
         return "home";
 
     }
+
+
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -77,7 +86,7 @@ public class FotoController{
         storageService.store(file, f.getId()+".jpg");
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-        return "redirect:/";
+        return "redirect:/rediger";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
