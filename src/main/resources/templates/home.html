@@ -20,6 +20,9 @@
                                 img.src="files/"+entry.id;
                                 img.hight=100;
                                 img.width=100;
+                                img.onclick = function (event) {
+                                    window.location.href = entry.id + '@{/bilde}';
+                                }
                                 li.innerHTML= entry.tittel;
                                 li.appendChild(img);
                                 liste.appendChild(li);
@@ -36,7 +39,7 @@
 </head>
 <body>
     <h1>Fotoalbum</h1>
-    <input type="button" id="innlogging" value="Innlogging Fototgraf"/>
+    <input type="button" id="innlogging" value="Innlogging Fototgraf" onclick="location.href='@{/login}'"/>
     <h2>Søkefelt</h2>
         <input type="text" id="sokefelt" pattern="[a-zA-Z]{2}" onkeyup="sok()"/>
         <input type="submit" value="Søk" onclick="sok()"/>

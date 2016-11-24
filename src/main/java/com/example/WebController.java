@@ -18,6 +18,7 @@ public class WebController {
     @Autowired
     FotografRepository fotografRepository;
 
+
     @RequestMapping(path="/login", method = RequestMethod.GET)
     public String login(){
         // Returnerer viewet "login.html" med map.addisjonen
