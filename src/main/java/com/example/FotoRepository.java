@@ -9,7 +9,7 @@ public interface FotoRepository extends MongoRepository<Foto, String>{
     // Metoder for Querys og operasjoner mot MongoDB
     public List<Foto> findAll();
     public Foto save(Foto vare);
-    public List<Foto> findAllByTittelStartsWith(String tittel);
+    public List<Foto> findAllByTittelStartsWithIgnoreCase(String tittel);
     public Foto findById(String id);
     public Long removeById(String id);
 }

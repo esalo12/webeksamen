@@ -40,7 +40,7 @@ public class FotoController{
     @RequestMapping(path = "/sok", method = RequestMethod.GET)
     public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
-        return fotoRepository.findAllByTittelStartsWith(sokeord);
+        return fotoRepository.findAllByTittelStartsWithIgnoreCase(sokeord);
     }
 
     @GetMapping("/")
