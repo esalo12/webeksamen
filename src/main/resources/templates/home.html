@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
     <script>
+        /*<![CDATA[*/
+            function sok() {
+                var sokeord = document.getElementById("sokefelt").value;
 
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+
+                    }
+                }
+                xmlHttp.open("GET", "/sok?=sokeord"+sokeord, true);
+                xmlHttp.send();
+
+            }
+        /*]]>*/
     </script>
 </head>
 <body>
     <h1>Fotoalbum</h1>
-    <input type="button" id="innlogging" value="Innlogging Fototgraf">
-    <input type="text" id="sokefelt" />
-    <h1>Ser du denne</h1>
+    <input type="button" id="innlogging" value="Innlogging Fototgraf"/>
+    <h2>Søkefelt</h2>
+        <input type="text" id="sokefelt"/>
+        <input type="submit" value="Søk" onclick="sok()"/>
+
+    <ul id="fototListe">
+
+    </ul>
 </body>
 </html>
