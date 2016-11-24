@@ -52,7 +52,6 @@ public class FotoController{
                                 .fromMethodName(FotoController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
-
         return "home";
 
     }
@@ -63,6 +62,7 @@ public class FotoController{
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename+".jpg");
+
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")

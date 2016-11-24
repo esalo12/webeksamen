@@ -16,7 +16,12 @@
                             liste.innerHTML="";
                             json.forEach(function (entry) {
                                 var li = document.createElement("li");
+                                var img = document.createElement("img");
+                                img.src="files/"+entry.id;
+                                img.hight=100;
+                                img.width=100;
                                 li.innerHTML= entry.tittel;
+                                li.appendChild(img);
                                 liste.appendChild(li);
                             });
                         }
