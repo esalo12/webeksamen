@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,19 @@ public class FotoController{
         mav.setViewName("bilde");
         mav.addObject("bilde", foto);
         return mav;
+    }
+    @RequestMapping(path = "/kommentar", method = RequestMethod.POST)
+    public @ResponseBody Kommentar leggTil(@RequestParam(value = "id")String id, @RequestParam(value = "navn")String navn,
+                                           @RequestParam(value = "kommentar") String kommentar){
+        Foto bilde = fotoRepository.findById(id);
+        Kommentar kommentaren = new Kommentar();
+        kommentaren.setNavn(navn);
+        kommentaren.setKommentar(kommentar);
+        Date tid = new Date();
+        kommentaren.setDato(tid);
+        bilde.addKommentarer(kommentaren);
+        fotoRepository.save(bilde);
+        return kommentaren;
     }
 
     @GetMapping("/")

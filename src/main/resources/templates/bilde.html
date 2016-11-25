@@ -2,27 +2,42 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
+    <!-- ... -->
+    <meta id="token" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- ... -->
     <title>Bilde</title>
     <script>
         /*<![CDATA[*/
-        function lagreKommentar() {
+        function lagreKommentar(id) {
             var token = document.getElementById("token").getAttribute("content");
             var headerName = document.getElementById("headerName").getAttribute("content");
             var navn = document.getElementById("navn").value;
-            var kommentar = document.getElementById("kommentar").value;
+            var nykommentar = document.getElementById("kommentar").value;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
-                if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-
-
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    json = JSON.parse(xmlHttp.responseText);
+                    console.log(JSON.stringify(json));
+                    var div = document.getElementById("kommentarer");
+                    var nydiv = document.createElement("div");
+                    var tid = document.createElement("p");
+                    var navn = document.createElement("p");
+                    var kommentar = document.createElement("p");
+                    tid.innerHTML = Date(json.tid);
+                    navn.innerHTML = "Navn: "+json.navn;
+                    kommentar.innerHTML = "Kommentar: "+json.kommentar;
+                    nydiv.appendChild(tid);
+                    nydiv.appendChild(navn);
+                    nydiv.appendChild(kommentar);
+                    div.appendChild(nydiv);
                 }
             };
             xmlHttp.open("POST", "/kommentar", true);
             xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlHttp.setRequestHeader(headerName, token);
-            xmlHttp.send("navn="+navn+"&kommentar="+kommentar);
-
-
+            xmlHttp.send("id=" + id + "&navn=" + navn + "&kommentar=" + nykommentar);
+        }
         /*]]>*/
     </script>
 </head>
@@ -31,12 +46,13 @@
     <a th:text="${bilde.fotografId}" th:href="@{/home}"></a>
     <br />
     <img th:src="@{/files/}+${bilde.id}" />
+    <div text="METADATA"> </div>
     <form>
         <div><label> Navn: <br/><input type="text" id="navn" /></label></div>
         <div><label> Skriv inn kommentar: <br /><textarea id="kommentar"></textarea></label></div>
-        <input type="submit" value="Lagre" />
+        <input th:id="${bilde.id}" type="button" value="Lagre" onclick="lagreKommentar(this.id)" />
     </form>
-<div th:if="${bilde.kommentarer != null}" id="kommentarer" >
+<div id="kommentarer" >
     <div th:each="k : ${bilde.kommentarer}" >
         <text>____________________________________</text>
         <p th:text="${k.dato}"></p>

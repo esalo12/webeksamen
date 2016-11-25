@@ -35,7 +35,7 @@ public class Kommentar {
     }
 
     public void setDato(Date dato) {
-        this.dato = new Date();
+        this.dato = dato;
     }
 
     public String getNavn() {
