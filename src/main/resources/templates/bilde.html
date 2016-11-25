@@ -45,7 +45,7 @@
     <h1 th:text="${bilde.tittel}"></h1>
     <a th:text="${bilde.fotografId}" th:href="@{/home}"></a>
     <br />
-    <img th:src="@{/files/}+${bilde.id}" />
+    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.id}" />
     <div text="METADATA"> </div>
     <form>
         <div><label> Navn: <br/><input type="text" id="navn" /></label></div>
