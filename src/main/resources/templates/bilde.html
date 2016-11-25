@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Bilde</title>
     <script>
         /*<![CDATA[*/
@@ -10,13 +10,15 @@
     </script>
 </head>
 <body>
-    <h1>Bilde</h1>
-    /*Bilde vises*/
-
+    <h1 th:text="${bilde.tittel}"></h1>
+    <a th:text="${bilde.fotografId}" th:href="@{/home}"></a>
+    <br />
+    <img th:src="@{/files/}+${bilde.id}" />
     <form>
-        <div><label> Skriv inn kommentar: <textarea id="kommentar"></textarea></label></div>
-        <div><label> Navn: <input type="text" id="navn" /></label></div>
-        <div><input type="submit" value="Lagre"></div>
+        <div><label> Navn: <br/><input type="text" id="navn" /></label></div>
+        <div><label> Skriv inn kommentar: <br /><textarea id="kommentar"></textarea></label></div>
+        <input type="submit" value="Lagre" />
     </form>
+
 </body>
 </html>

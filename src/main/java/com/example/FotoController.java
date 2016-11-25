@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,6 +42,14 @@ public class FotoController{
     public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
         return fotoRepository.findAllByTittelStartsWithIgnoreCase(sokeord);
+    }
+
+    @RequestMapping(path = "/bilde", method = RequestMethod.GET)
+    public ModelAndView finn(@RequestParam(value = "bilde") String bilde, ModelAndView mav){
+        Foto foto =  fotoRepository.findById(bilde);
+        mav.setViewName("bilde");
+        mav.addObject("bilde", foto);
+        return mav;
     }
 
     @GetMapping("/")

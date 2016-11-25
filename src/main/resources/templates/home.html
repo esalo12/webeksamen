@@ -21,7 +21,7 @@
                                 img.hight=100;
                                 img.width=100;
                                 img.onclick = function (event) {
-                                    window.location.href = entry.id + '@{/bilde}';
+                                    window.location.href = "/bilde?bilde="+entry.id;
                                 }
                                 li.innerHTML= entry.tittel;
                                 li.appendChild(img);
