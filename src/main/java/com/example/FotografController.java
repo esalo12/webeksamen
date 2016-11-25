@@ -3,6 +3,7 @@ package com.example;
 import com.sun.deploy.security.UserDeclinedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class FotografController {
@@ -19,6 +23,17 @@ public class FotografController {
     FotografRepository fotografRepository;
     @Autowired
     FotoRepository fotoRepository;
+
+    @RequestMapping(path = "/fotograf", method = RequestMethod.GET)
+    public ModelAndView fotograf(ModelAndView mav){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        String id = fgraf.getId();
+        List<Foto> liste = fotoRepository.findAllByFotografId(id);
+        mav.setViewName("fotograf");
+        mav.addObject("liste", liste);
+        return mav;
+    }
 
     @RequestMapping(path="/nybruker", method = RequestMethod.GET)
     public String nybruker(){

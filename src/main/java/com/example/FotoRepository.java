@@ -11,5 +11,6 @@ public interface FotoRepository extends MongoRepository<Foto, String>{
     public Foto save(Foto vare);
     public List<Foto> findAllByTittelStartsWithIgnoreCase(String tittel);
     public Foto findById(String id);
+    public List<Foto> findAllByFotografId(String id);
     public Long removeById(String id);
 }

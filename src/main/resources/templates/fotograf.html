@@ -6,12 +6,16 @@
 </head>
 <body>
     <h1>Fotograf</h1>
-    <button id="nyttFoto" value="Legg til nytt foto" onclick="location.href='@{/rediger}'"></button>
-    
-    <ul id="fotografListe">
+    <button id="nyttFoto" onclick="location.href='/nyttbilde'">Legg til bilde</button>
 
-    </ul>
-
+    <div id="lista" >
+        <div th:each="f : ${liste}">
+            <text>-------------------------------</text>
+            <br/>
+            <p th:text="${f.tittel}" />
+            <img style="max-width: 100px" th:src="@{/files/}+${f.id}" />
+        </div>
+    </div>
 
 </body>
 </html>
