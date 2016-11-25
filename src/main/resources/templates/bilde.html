@@ -5,6 +5,22 @@
     <title>Bilde</title>
     <script>
         /*<![CDATA[*/
+        function lagreKommentar() {
+            var token = document.getElementById("token").getAttribute("content");
+            var headerName = document.getElementById("headerName").getAttribute("content");
+            var navn = document.getElementById("navn").value;
+            var kommentar = document.getElementById("kommentar").value;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+
+
+                }
+            };
+            xmlHttp.open("POST", "/kommentar", true);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.setRequestHeader(headerName, token);
+            xmlHttp.send("navn="+navn+"&kommentar="+kommentar);
 
 
         /*]]>*/
