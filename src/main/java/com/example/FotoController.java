@@ -39,33 +39,6 @@ public class FotoController{
     @Autowired
     FotografRepository fotografRepository;
 
-    @RequestMapping(path = "/sok", method = RequestMethod.GET)
-    public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
-        System.out.println(sokeord);
-        return fotoRepository.findAllByTittelStartsWithIgnoreCase(sokeord);
-    }
-
-    @RequestMapping(path = "/bilde", method = RequestMethod.GET)
-    public ModelAndView finn(@RequestParam(value = "bilde") String bilde, ModelAndView mav){
-        Foto foto =  fotoRepository.findById(bilde);
-        mav.setViewName("bilde");
-        mav.addObject("bilde", foto);
-        return mav;
-    }
-    @RequestMapping(path = "/kommentar", method = RequestMethod.POST)
-    public @ResponseBody Kommentar leggTil(@RequestParam(value = "id")String id, @RequestParam(value = "navn")String navn,
-                                           @RequestParam(value = "kommentar") String kommentar){
-        Foto bilde = fotoRepository.findById(id);
-        Kommentar kommentaren = new Kommentar();
-        kommentaren.setNavn(navn);
-        kommentaren.setKommentar(kommentar);
-        Date tid = new Date();
-        kommentaren.setDato(tid);
-        bilde.addKommentarer(kommentaren);
-        fotoRepository.save(bilde);
-        return kommentaren;
-    }
-
     @GetMapping("/")
     public String listUploadedFiles(Model model) throws IOException {
         model.addAttribute("files", storageService
@@ -78,7 +51,6 @@ public class FotoController{
         return "home";
 
     }
-
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
@@ -117,6 +89,5 @@ public class FotoController{
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
-
 }
 
