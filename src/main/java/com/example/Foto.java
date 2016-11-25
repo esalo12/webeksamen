@@ -3,6 +3,7 @@ package com.example;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
+import java.util.List;
 
 // Klassen som brukes av denne tjenesten.
 public class Foto {
@@ -15,6 +16,8 @@ public class Foto {
     String fotografId;
     String contentType;
     Date dato;
+    List<Kommentar> kommentarer;
+
 
 
     public Foto(){
@@ -63,5 +66,13 @@ public class Foto {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<Kommentar> getKommentarer() {
+        return kommentarer;
+    }
+
+    public void addKommentarer(Kommentar kommentar) {
+        this.getKommentarer().add(kommentar);
     }
 }
