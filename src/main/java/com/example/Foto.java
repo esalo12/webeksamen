@@ -2,6 +2,7 @@ package com.example;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +71,10 @@ public class Foto {
 
     public List<Kommentar> getKommentarer() {
         return kommentarer;
+    }
+
+    public void setKommentarer() {
+        this.kommentarer = new ArrayList<>();
     }
 
     public void addKommentarer(Kommentar kommentar) {

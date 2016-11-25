@@ -89,6 +89,7 @@ public class FotoController{
         f.setContentType(file.getContentType());
         f.setTittel(tittel);
         f.setDato();
+        f.setKommentarer();
         System.out.println(f.getTittel()+", "+f.getDato()+file.getSize());
         fotoRepository.save(f);
         System.out.println(f.getId());

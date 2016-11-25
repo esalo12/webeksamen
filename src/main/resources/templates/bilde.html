@@ -6,6 +6,7 @@
     <script>
         /*<![CDATA[*/
 
+
         /*]]>*/
     </script>
 </head>
@@ -19,6 +20,15 @@
         <div><label> Skriv inn kommentar: <br /><textarea id="kommentar"></textarea></label></div>
         <input type="submit" value="Lagre" />
     </form>
+<div th:if="${bilde.kommentarer != null}" id="kommentarer" >
+    <div th:each="k : ${bilde.kommentarer}" >
+        <text>____________________________________</text>
+        <p th:text="${k.dato}"></p>
+        <p th:text="${k.navn}"></p>
+        <p th:text="${k.kommentar}"></p>
+    </div>
+</div>
+
 
 </body>
 </html>
