@@ -13,7 +13,7 @@
             <text>-------------------------------</text>
             <br/>
             <p th:text="${f.tittel}" />
-            <img style="max-width: 100px" th:src="@{/files/}+${f.id}" />
+            <img th:src="@{/files/}+${f.id}" style="max-width: 100px" onclick="location.href='/rediger'" />
         </div>
     </div>
 
