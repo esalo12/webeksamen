@@ -59,16 +59,6 @@ public class StorageController {
                 .body(file);
     }
 
-    @GetMapping("/files/thumb/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> thumbFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename+".jpg");
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
-                .body(file);
-    }
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file")MultipartFile file, @RequestParam("tittel") String tittel,
@@ -88,7 +78,7 @@ public class StorageController {
         storageService.store(file, f.getId()+".jpg");
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-        return "redirect:/rediger";
+        return "redirect:/fotograf";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

@@ -35,8 +35,12 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void slett(String fil) throws IOException {
-        Files.delete(this.rootLocation.resolve(fil));
+    public void slett(String fil){
+        try {
+            Files.delete(this.rootLocation.resolve(fil));
+        } catch (IOException e) {
+            throw new StorageFileNotFoundException("Failed to delete file " + fil);
+        }
     }
 
     @Override
