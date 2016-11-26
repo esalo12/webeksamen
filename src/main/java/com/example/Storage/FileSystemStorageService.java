@@ -6,11 +6,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.stream.Stream;
 
 @Service
@@ -36,6 +35,11 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
+    public void slett(String fil) throws IOException {
+        Files.delete(this.rootLocation.resolve(fil));
+    }
+
+    @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
@@ -51,6 +55,7 @@ public class FileSystemStorageService implements StorageService {
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
+
 
     @Override
     public Resource loadAsResource(String filename) {

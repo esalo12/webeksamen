@@ -1,5 +1,8 @@
 package com.example;
 
+import com.example.Storage.StorageFileNotFoundException;
+import com.example.Storage.StorageService;
+import com.mongodb.util.JSON;
 import com.sun.deploy.security.UserDeclinedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -8,21 +11,49 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class FotografController {
 
+    private final StorageService storageService;
+
+    @Autowired
+    public FotografController(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
     @Autowired
     FotografRepository fotografRepository;
     @Autowired
     FotoRepository fotoRepository;
+
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    public @ResponseBody String slett(@RequestParam("id") String id ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        String fid = fgraf.getId();
+        Foto foto =  fotoRepository.findById(id);
+        if( !fgraf.getId().equals(foto.getFotografId())) {
+            return "Noe ble feil";
+        }
+        if (storageService.loadAsResource(id+".jpg").exists()){
+            try {
+                storageService.slett(id+".jpg");
+                fotoRepository.removeById(id);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "slettet";
+        }
+        else{
+            return "Ingen fil med dette navn";
+        }
+    }
 
     @RequestMapping(path = "/fotograf", method = RequestMethod.GET)
     public ModelAndView fotograf(ModelAndView mav){

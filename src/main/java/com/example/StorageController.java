@@ -1,6 +1,5 @@
 package com.example;
 
-
 import com.example.Storage.StorageFileNotFoundException;
 import com.example.Storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,27 +10,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 @Controller
-public class FotoController{
+public class StorageController {
 
     private final StorageService storageService;
 
     @Autowired
-    public FotoController(StorageService storageService) {
+    public StorageController(StorageService storageService) {
         this.storageService = storageService;
     }
     @Autowired
@@ -45,7 +40,7 @@ public class FotoController{
                 .loadAll()
                 .map(path ->
                         MvcUriComponentsBuilder
-                                .fromMethodName(FotoController.class, "serveFile", path.getFileName().toString())
+                                .fromMethodName(StorageController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
         return "home";
@@ -64,6 +59,17 @@ public class FotoController{
                 .body(file);
     }
 
+    @GetMapping("/files/thumb/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> thumbFile(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename+".jpg");
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
+                .body(file);
+    }
+
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file")MultipartFile file, @RequestParam("tittel") String tittel,
                                    RedirectAttributes redirectAttributes) throws IOException {
@@ -76,7 +82,7 @@ public class FotoController{
         f.setTittel(tittel);
         f.setDato();
         f.setKommentarer();
-        System.out.println(f.getTittel()+", "+f.getDato()+file.getSize());
+        System.out.println(f.getTittel()+", "+f.getDato()+" "+file.getSize());
         fotoRepository.save(f);
         System.out.println(f.getId());
         storageService.store(file, f.getId()+".jpg");
