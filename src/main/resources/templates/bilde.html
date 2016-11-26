@@ -12,21 +12,26 @@
         function lagreKommentar(id) {
             var token = document.getElementById("token").getAttribute("content");
             var headerName = document.getElementById("headerName").getAttribute("content");
-            var navn = document.getElementById("navn").value;
-            var nykommentar = document.getElementById("kommentar").value;
+            var nynavn = document.getElementById("navn");
+            var nykommentar = document.getElementById("kommentar");
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    nynavn.value="";
+                    nykommentar.value="";
                     json = JSON.parse(xmlHttp.responseText);
                     console.log(JSON.stringify(json));
                     var div = document.getElementById("kommentarer");
+                    var linje = document.createElement("text");
                     var nydiv = document.createElement("div");
                     var tid = document.createElement("p");
                     var navn = document.createElement("p");
                     var kommentar = document.createElement("p");
+                    linje.innerHTML = "____________________________________";
                     tid.innerHTML = Date(json.tid);
-                    navn.innerHTML = "Navn: "+json.navn;
-                    kommentar.innerHTML = "Kommentar: "+json.kommentar;
+                    navn.innerHTML = json.navn;
+                    kommentar.innerHTML = json.kommentar;
+                    nydiv.appendChild(linje);
                     nydiv.appendChild(tid);
                     nydiv.appendChild(navn);
                     nydiv.appendChild(kommentar);
@@ -36,7 +41,7 @@
             xmlHttp.open("POST", "/kommentar", true);
             xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlHttp.setRequestHeader(headerName, token);
-            xmlHttp.send("id=" + id + "&navn=" + navn + "&kommentar=" + nykommentar);
+            xmlHttp.send("id=" + id + "&navn=" + nynavn.value + "&kommentar=" + nykommentar.value);
         }
         /*]]>*/
     </script>
