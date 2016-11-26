@@ -43,8 +43,8 @@ public class FotografController {
         }
         if (storageService.loadAsResource(id+".jpg").exists()){
             try {
-                storageService.slett(id+".jpg");
                 fotoRepository.removeById(id);
+                storageService.slett(id+".jpg");
             } catch (IOException e) {
                 e.printStackTrace();
             }
