@@ -78,6 +78,7 @@
     <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" />
     <div><span id="kamera"></span> </div>
     <div><span id="opplosning"></span></div>
+    <div>Bildeformat: <span id="type" th:text="${bilde.filtype}"></span></div>
     <div><span id="iso"></span></div>
     <div><span id="tatt"></span></div>
     <div >Størrelse: <span id="storrels" th:text="${bilde.storrelse}+kb"></span> </div>

@@ -15,7 +15,7 @@ public class Foto {
 
     String tittel;
     String fotografId;
-    String contentType;
+    String filtype;
     String filnavn;
     Integer storrelse;
     Date dato;
@@ -55,12 +55,12 @@ public class Foto {
         this.dato = new Date();
     }
 
-    public String getContentType() {
-        return contentType;
+    public String getFiltype() {
+        return filtype;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setFiltype(String filtype) {
+        this.filtype = filtype;
     }
 
     public String getFilnavn() {

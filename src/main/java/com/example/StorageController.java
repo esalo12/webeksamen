@@ -79,7 +79,7 @@ public class StorageController {
         System.out.println(image.getColorModel().getPixelSize()+"bit "+file.getBytes().length/1024+"kb");
         System.out.println(width+" X "+height);
         Foto foto = new Foto(tittel, fotgraf.getId());
-        foto.setContentType(file.getContentType());
+        foto.setFiltype(file.getContentType().split("\\/")[1]);
         foto.setTittel(tittel);
         foto.setDato();
         foto.setStorrelse(file.getBytes().length/1024);
