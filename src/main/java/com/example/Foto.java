@@ -17,6 +17,7 @@ public class Foto {
     String fotografId;
     String contentType;
     String filnavn;
+    Integer storrelse;
     Date dato;
     List<Kommentar> kommentarer;
 
@@ -25,7 +26,7 @@ public class Foto {
     public Foto(){
     }
 
-    public Foto(String tittel) {
+    public Foto(String tittel, String fotografId) {
         this.tittel = tittel;
         this.fotografId = fotografId;
     }
@@ -68,6 +69,14 @@ public class Foto {
 
     public void setFilnavn(String filnavn) {
         this.filnavn = filnavn;
+    }
+
+    public Integer getStorrelse() {
+        return storrelse;
+    }
+
+    public void setStorrelse(Integer storrels) {
+        this.storrelse = storrels;
     }
 
     public String getId() {

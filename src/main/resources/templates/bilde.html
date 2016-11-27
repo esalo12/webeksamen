@@ -7,8 +7,34 @@
     <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- ... -->
     <title>Bilde</title>
+    <script src="exif.js">           </script>
     <script>
         /*<![CDATA[*/
+        window.onload=getExif;
+
+        function getExif() {
+            var bilde = document.getElementById("bilde");
+            EXIF.getData(bilde, function() {
+                var kam = document.getElementById("kamera");
+                var opplosn = document.getElementById("opplosning");
+                var farge = document.getElementById("farge");
+                var iso = document.getElementById("iso");
+                var bits = document.getElementById("bits");
+                var dato = document.getElementById("tatt");
+
+                var kamera = EXIF.getTag(this, "Model");
+                var bredde = EXIF.getTag(this, "PixelXDimension");
+                var hoyde = EXIF.getTag(this, "PixelYDimension");
+                var isoen = EXIF.getTag(this, "ISOSpeedRatings");
+                var tid = EXIF.getTag(this, "DateTimeOriginal");
+
+                kam.innerHTML ="Kamera: "+kamera;
+                opplosn.innerHTML = "Oppløsning: "+bredde+"x"+hoyde;
+                iso.innerHTML = "ISO: "+isoen;
+                dato.innerHTML= "Tatt: "+tid;
+            });
+        }
+
         function lagreKommentar(id) {
             var token = document.getElementById("token").getAttribute("content");
             var headerName = document.getElementById("headerName").getAttribute("content");
@@ -48,10 +74,15 @@
 </head>
 <body>
     <h1 th:text="${bilde.tittel}"></h1>
-    <a th:text="${bilde.fotografId}" th:href="@{/home}"></a>
     <br />
-    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" />
-    <div text="METADATA"> </div>
+    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" />
+    <div><span id="kamera"></span> </div>
+    <div><span id="opplosning"></span></div>
+    <div><span id="iso"></span></div>
+    <div><span id="tatt"></span></div>
+    <div >Størrelse: <span id="storrels" th:text="${bilde.storrelse}+kb"></span> </div>
+    <div>Lastet opp: <span id="opplast" th:text="${bilde.dato}" ></span></div>
+    <text>____________________________________</text>
     <form>
         <div><label> Navn: <br/><input type="text" id="navn" /></label></div>
         <div><label> Skriv inn kommentar: <br /><textarea id="kommentar"></textarea></label></div>
