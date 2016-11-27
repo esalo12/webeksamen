@@ -21,6 +21,6 @@ public interface StorageService {
 
     void deleteAll();
 
-    void slett(String id) throws IOException;
+    void slett(String id);
 
 }

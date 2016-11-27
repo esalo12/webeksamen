@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
+import java.lang.reflect.Array;
 import java.util.stream.Collectors;
 
 
@@ -51,7 +52,7 @@ public class StorageController {
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
-        Resource file = storageService.loadAsResource(filename+".jpg");
+        Resource file = storageService.loadAsResource(filename);
 
         return ResponseEntity
                 .ok()
@@ -64,18 +65,18 @@ public class StorageController {
     public String handleFileUpload(@RequestParam("file")MultipartFile file, @RequestParam("tittel") String tittel,
                                    RedirectAttributes redirectAttributes) throws IOException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Foto f = new Foto();
+        Foto foto = new Foto();
         Fotograf fotgraf = fotografRepository.findByBrukernavn(user.getUsername());
-        f.setFotografId(fotgraf.getId());
-        f.setTittel(file.getOriginalFilename());
-        f.setContentType(file.getContentType());
-        f.setTittel(tittel);
-        f.setDato();
-        f.setKommentarer();
-        System.out.println(f.getTittel()+", "+f.getDato()+" "+file.getSize());
-        fotoRepository.save(f);
-        System.out.println(f.getId());
-        storageService.store(file, f.getId()+".jpg");
+        foto.setFotografId(fotgraf.getId());
+        foto.setContentType(file.getContentType());
+        foto.setTittel(tittel);
+        foto.setDato();
+        foto.setKommentarer();
+        System.out.println(foto.getTittel()+", "+foto.getDato()+" "+file.getSize());
+        fotoRepository.save(foto);
+        foto.setFilnavn(foto.getId()+"."+file.getOriginalFilename().split("\\.")[1]);
+        fotoRepository.save(foto);
+        storageService.store(file, foto.getFilnavn());
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/fotograf";

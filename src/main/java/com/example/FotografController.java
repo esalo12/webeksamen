@@ -41,17 +41,15 @@ public class FotografController {
         if( !fgraf.getId().equals(foto.getFotografId())) {
             return "Noe ble feil";
         }
-        if (storageService.loadAsResource(id+".jpg").exists()){
-            try {
-                fotoRepository.removeById(id);
+        else {
+            fotoRepository.removeById(id);
+            if (storageService.loadAsResource(id+".jpg").exists()){
                 storageService.slett(id+".jpg");
-            } catch (IOException e) {
-                e.printStackTrace();
+                return "slettet";
             }
-            return "slettet";
-        }
-        else{
-            return "Ingen fil med dette navn";
+            else{
+                return "Ingen fil med dette navn";
+            }
         }
     }
 

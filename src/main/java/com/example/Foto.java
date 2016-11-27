@@ -16,6 +16,7 @@ public class Foto {
     String tittel;
     String fotografId;
     String contentType;
+    String filnavn;
     Date dato;
     List<Kommentar> kommentarer;
 
@@ -59,6 +60,14 @@ public class Foto {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public String getFilnavn() {
+        return filnavn;
+    }
+
+    public void setFilnavn(String filnavn) {
+        this.filnavn = filnavn;
     }
 
     public String getId() {
