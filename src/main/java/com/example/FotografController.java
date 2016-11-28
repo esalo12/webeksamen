@@ -86,7 +86,7 @@ public class FotografController {
         }
     }
     @RequestMapping(path = "/rediger", method = RequestMethod.POST)
-    public String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam( value = "tags") List tags){
+    public String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam( value = "tags")List tags){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
         Foto foto =  fotoRepository.findById(id);

@@ -19,7 +19,7 @@ public class Foto {
     String filnavn;
     Integer storrelse;
     Date dato;
-    List tags;
+    List<String> tags;
     List<Kommentar> kommentarer;
 
 
@@ -72,11 +72,15 @@ public class Foto {
         this.filnavn = filnavn;
     }
 
-    public List getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List tags) {
+    public void initTags() {
+        this.tags = new ArrayList<>();
+    }
+
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

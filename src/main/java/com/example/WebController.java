@@ -2,6 +2,7 @@ package com.example;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,24 @@ public class WebController {
     public @ResponseBody
     List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
-        return fotoRepository.findAllByTittelStartsWithIgnoreCase(sokeord);
+        List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsStartsWithIgnoreCase(sokeord, sokeord);
+        List<Fotograf> fliste = fotografRepository.findAllByFornavnStartsWithIgnoreCaseOrEtternavnStartsWithIgnoreCase(sokeord, sokeord);
+        for(Fotograf f : fliste){
+            List<Foto> fgrafBilder = fotoRepository.findAllByFotografId(f.getId());
+            for (Foto obj : fgrafBilder){
+                Boolean funnet = false;
+                for ( Foto obj2 : fotoList){
+                    if (obj.getId().equals(obj2.getId())){
+                        funnet = true;
+                        break;
+                    }
+                }
+                if (!funnet) {
+                    fotoList.add(obj);
+                }
+            }
+        }
+        return fotoList;
     }
 
     @RequestMapping(path = "/bilde", method = RequestMethod.GET)

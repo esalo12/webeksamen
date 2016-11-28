@@ -19,6 +19,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -77,6 +80,7 @@ public class StorageController {
         foto.setTittel(tittel);
         foto.setDato();
         foto.setStorrelse(file.getBytes().length/1024);
+        foto.setTags(new ArrayList<>());
         foto.setKommentarer();
         System.out.println(foto.getTittel()+", "+foto.getDato()+" "+file.getSize());
         fotoRepository.save(foto);

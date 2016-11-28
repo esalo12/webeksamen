@@ -1,5 +1,7 @@
 package com.example;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -9,6 +11,7 @@ public interface FotografRepository extends MongoRepository<Fotograf, String> {
     public List<Fotograf> findAll();
     public Fotograf save(Fotograf fotograf);
     public Fotograf findByBrukernavn(String bruker);
+    public List<Fotograf> findAllByFornavnStartsWithIgnoreCaseOrEtternavnStartsWithIgnoreCase(String fnavn, String enavn);
     public Fotograf findById(String id);
     public Long removeById(String id);
 }
