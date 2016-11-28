@@ -1,5 +1,6 @@
 package com.example;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -12,7 +13,6 @@ public class Kommentar {
     Date dato;
     String navn;
     String kommentar;
-    List<Kommentar> kommentarer;
 
     public Kommentar(){
     }
@@ -23,7 +23,7 @@ public class Kommentar {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {

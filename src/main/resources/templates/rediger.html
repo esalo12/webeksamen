@@ -1,23 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
+    <!-- ... -->
+    <meta id="token" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- ... -->
+    <title>Bilde</title>
+    <script src="exif.js"></script>
+    <script>
+        /*<![CDATA[*/
+        function slettKommentar(id) {
+            var token = document.getElementById("token").getAttribute("content");
+            var headerName = document.getElementById("headerName").getAttribute("content");
+            var bilde = document.getElementById("bilde").name;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    console.log(xmlHttp.responseText);
+                }
+            };
+            xmlHttp.open("POST", "/kommentar/slett", true);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.setRequestHeader(headerName, token);
+            xmlHttp.send("id="+id+"&bilde="+bilde);
+        }
 
-
-    <title>Rediger</title>
+        function lagre(){
+            var token = document.getElementById("token").getAttribute("content");
+            var headerName = document.getElementById("headerName").getAttribute("content");
+            var bilde = document.getElementById("bilde").name;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    console.log(xmlHttp.responseText);
+                }
+            };
+            xmlHttp.open("POST", "/kommentar/slett", true);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.setRequestHeader(headerName, token);
+            xmlHttp.send("id="+id+"&bilde="+bilde);
+        }
+        /*]]>*/
+    </script>
 </head>
 <body>
+<h1 th:text="${bilde.tittel}"></h1>
+<br />
+<img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
 
-<form th:action="@{/}" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <p>Sett tittel</p>
-    <input type="text" name="tittel" />
-    <p>Last opp bilde</p>
-    <input type="file" name="file" value="Velg" />
-    <br />
+<div id="kommentarer" >
+    <div th:each="k : ${bilde.kommentarer}" >
+        <div th:id="${k.id}">
+            <text>____________________________________</text>
+            <p th:text="${k.dato}"></p>
+            <p th:text="${k.navn}+': '"></p>
+            <p th:text="${k.kommentar}"></p>
+            <button th:name="${k.id}" onclick="slettKommentar(this.name)">Slett</button>
+        </div>
+    </div>
+</div>
 
-    <input type="submit" value="Lagre"/>
-</form>
 
 </body>
 </html>

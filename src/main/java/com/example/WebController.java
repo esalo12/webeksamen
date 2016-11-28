@@ -1,5 +1,6 @@
 package com.example;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,14 +38,12 @@ public class WebController {
     public @ResponseBody Kommentar leggTil(@RequestParam(value = "id")String id, @RequestParam(value = "navn")String navn,
                                            @RequestParam(value = "kommentar") String kommentar){
         Foto bilde = fotoRepository.findById(id);
-        Kommentar kommentaren = new Kommentar();
-        kommentaren.setNavn(navn);
-        kommentaren.setKommentar(kommentar);
+        Kommentar kommentaren = new Kommentar(navn, kommentar);
         Date tid = new Date();
+        kommentaren.setId(new ObjectId().toString());
         kommentaren.setDato(tid);
         bilde.addKommentarer(kommentaren);
         fotoRepository.save(bilde);
         return kommentaren;
     }
-
 }

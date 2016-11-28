@@ -7,7 +7,7 @@
     <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- ... -->
     <title>Bilde</title>
-    <script src="exif.js">           </script>
+    <script src="exif.js"></script>
     <script>
         /*<![CDATA[*/
         window.onload=getExif;
@@ -75,7 +75,7 @@
 <body>
     <h1 th:text="${bilde.tittel}"></h1>
     <br />
-    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" />
+    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
     <div><span id="kamera"></span> </div>
     <div><span id="opplosning"></span></div>
     <div>Bildeformat: <span id="type" th:text="${bilde.filtype}"></span></div>
@@ -91,13 +91,13 @@
     </form>
 <div id="kommentarer" >
     <div th:each="k : ${bilde.kommentarer}" >
-        <text>____________________________________</text>
-        <p th:text="${k.dato}"></p>
-        <p th:text="${k.navn}+': '"></p>
-        <p th:text="${k.kommentar}"></p>
+        <div th:id="${k.id}">
+            <text>____________________________________</text>
+            <p th:text="${k.dato}"></p>
+            <p th:text="${k.navn}+': '"></p>
+            <p th:text="${k.kommentar}"></p>
+        </div>
     </div>
 </div>
-
-
 </body>
 </html>

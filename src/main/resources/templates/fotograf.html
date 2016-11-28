@@ -45,7 +45,9 @@
                 <text>-------------------------------</text>
                 <br/>
                 <p th:text="${f.tittel}" />
-                <img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" onclick="location.href='/rediger'" />
+                <a th:href="@{/rediger?id=}+${f.id}">
+                <img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" />
+                </a>
                 <button th:name="${f.id}" onclick="slett(this.name)">Slett</button>
             </div>
 

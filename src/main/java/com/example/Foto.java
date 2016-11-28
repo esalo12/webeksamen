@@ -19,6 +19,7 @@ public class Foto {
     String filnavn;
     Integer storrelse;
     Date dato;
+    List tags;
     List<Kommentar> kommentarer;
 
 
@@ -71,6 +72,14 @@ public class Foto {
         this.filnavn = filnavn;
     }
 
+    public List getTags() {
+        return tags;
+    }
+
+    public void setTags(List tags) {
+        this.tags = tags;
+    }
+
     public Integer getStorrelse() {
         return storrelse;
     }
@@ -97,5 +106,15 @@ public class Foto {
 
     public void addKommentarer(Kommentar kommentar) {
         this.getKommentarer().add(kommentar);
+    }
+
+    public void slettKommentar(String id) {
+        Kommentar obj = null;
+        for ( Kommentar k : this.kommentarer){
+            if ( k.getId().equals(id)){
+                obj=k;
+            }
+        }
+        this.kommentarer.remove(obj);
     }
 }

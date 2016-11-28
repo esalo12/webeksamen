@@ -1,20 +1,13 @@
 package com.example;
 
-import com.example.Storage.StorageFileNotFoundException;
 import com.example.Storage.StorageService;
-import com.mongodb.util.JSON;
-import com.sun.deploy.security.UserDeclinedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -52,6 +45,14 @@ public class FotografController {
             }
         }
     }
+    @RequestMapping(path = "/kommentar/slett", method = RequestMethod.POST)
+    public @ResponseBody String slettTil(@RequestParam(value = "id")String id, @RequestParam(value = "bilde")String bildeid){
+        Foto foto = fotoRepository.findById(bildeid);
+        System.out.println(bildeid+" "+id);
+        foto.slettKommentar(id);
+        fotoRepository.save(foto);
+        return "slettet";
+    }
 
     @RequestMapping(path = "/fotograf", method = RequestMethod.GET)
     public ModelAndView fotograf(ModelAndView mav){
@@ -64,24 +65,6 @@ public class FotografController {
         return mav;
     }
 
-    @RequestMapping(path="/nybruker", method = RequestMethod.GET)
-    public String nybruker(){
-        // Returnerer viewet "login.html" med map.addisjonen
-        return "nybruker";
-    }
-
-    @RequestMapping(path="/login", method = RequestMethod.GET)
-    public String login(){
-        // Returnerer viewet "login.html" med map.addisjonen
-        return "login";
-    }
-
-    @RequestMapping(path="/login", method = RequestMethod.POST)
-    public @ResponseBody String autoriser(){
-        // Returnerer viewet "rediger.html"
-        return "rediger";
-    }
-
     @RequestMapping(path="/nyttbilde", method = RequestMethod.GET)
     public String nyttBilde(){
         // Returnerer viewet "rediger.html"
@@ -89,25 +72,32 @@ public class FotografController {
     }
 
     @RequestMapping(path = "/rediger", method = RequestMethod.GET)
-    public String rediger(){
-        // Returnerer viewet "rediger.html"
-        return "rediger";
-    }
-
-    @RequestMapping(path="/nybruker", method = RequestMethod.POST)
-    public ModelMap lagBruker(@RequestParam(value="fornavn") String fornavn, @RequestParam(value="etternavn") String etternavn,
-                                     @RequestParam(value="brukernavn") String bruker, @RequestParam(value="passord") String passord){
-        Fotograf user = fotografRepository.findByBrukernavn(bruker);
-        ModelMap map = new ModelMap();
-        if(user != null) {
-            map.addAttribute( "error", "nybruker");
-            return map;
+    public ModelAndView finn(@RequestParam(value = "id") String id, ModelAndView mav){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        Foto foto =  fotoRepository.findById(id);
+        if( !fgraf.getId().equals(foto.getFotografId())) {
+            return new ModelAndView("rediger");
         }
-        else {
-            map.addAttribute("lagret", "nybruker");
-                        Fotograf fotograf = new Fotograf(fornavn, etternavn, bruker, passord);
-            fotografRepository.save(fotograf);
-            return map;
+        else{
+            mav.setViewName("rediger");
+            mav.addObject("bilde", foto);
+            return mav;
+        }
+    }
+    @RequestMapping(path = "/rediger", method = RequestMethod.POST)
+    public String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam( value = "tags") List tags){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        Foto foto =  fotoRepository.findById(id);
+        if( !fgraf.getId().equals(foto.getFotografId())) {
+            return "error";
+        }
+        else{
+            foto.setTittel(tittel);
+            foto.setTags(tags);
+            fotoRepository.save(foto);
+            return "rediger";
         }
     }
 }
