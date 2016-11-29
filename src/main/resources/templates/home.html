@@ -15,31 +15,48 @@
                         tabell.innerHTML="";
                         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                             json = JSON.parse(xmlHttp.responseText);
-                            tabell.innerHTML="";
                             var rad1 = document.createElement("tr");
                             var celle1 = document.createElement("th");
                             var celle2 = document.createElement("th");
                             var celle3 = document.createElement("th");
+                            var celle4 = document.createElement("th");
                             var fotgrf = document.createTextNode("Fotograf");
                             var titl = document.createTextNode("Tittel");
+                            var tags = document.createTextNode("Tagger");
                             var bild = document.createTextNode("Bilde");
                             celle1.appendChild(fotgrf);
                             celle2.appendChild(titl);
-                            celle3.appendChild(bild);
+                            celle3.appendChild(tags);
+                            celle4.appendChild(bild);
                             rad1.appendChild(celle1);
                             rad1.appendChild(celle2);
                             rad1.appendChild(celle3);
+                            rad1.appendChild(celle4);
                             tabell.appendChild(rad1);
                             var i = 1;
-                            json.forEach(function(obj){
+                            json.forEach( function(obj){
                                 var rader = tabell.insertRow(i);
                                 var celler1 = rader.insertCell(0);
                                 var celler2 = rader.insertCell(1);
                                 var celler3 = rader.insertCell(2);
+                                var celler4 = rader.insertCell(3);
                                 var fotograf = document.createElement("a");
                                 fotograf.href='/finn?fgraf='+obj.fotografId;
                                 fotograf.text=obj.fotografnavn;
                                 var tittelen = document.createTextNode(obj.tittel);
+
+                                if ( obj.tags.length > 0) {
+                                    console.log("her");
+                                    obj.tags.forEach(function(tg){
+                                        var a = document.createElement("a");
+                                        var span = document.createElement("span");
+                                        a.href="/tag?tag="+tg;
+                                        span.innerHTML=tg;
+                                        span.setAttribute("style", "font-size: 15px; padding: 3px;");
+                                        a.appendChild(span);
+                                        celler3.appendChild(a);
+                                    });
+                                }
                                 var img = document.createElement("img");
                                 img.src="files/"+obj.filnavn;
                                 img.hight=200;
@@ -49,7 +66,7 @@
                                 };
                                 celler1.appendChild(fotograf);
                                 celler2.appendChild(tittelen);
-                                celler3.appendChild(img);
+                                celler4.appendChild(img);
                             });
                         }
                     };
