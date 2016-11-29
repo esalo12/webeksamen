@@ -12,6 +12,7 @@
                     var xmlHttp = new XMLHttpRequest();
                     xmlHttp.onreadystatechange = function () {
                         var tabell = document.getElementById("tabell");
+                        tabell.innerHTML="";
                         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                             json = JSON.parse(xmlHttp.responseText);
                             if ( json.length > 0 ) {
@@ -45,7 +46,6 @@
                                     fotograf.text = obj.fotografnavn;
                                     var tittelen = document.createTextNode(obj.tittel);
                                     if (obj.tags.length > 0) {
-                                        console.log("her");
                                         obj.tags.forEach(function (tg) {
                                             var a = document.createElement("a");
                                             var span = document.createElement("span");
@@ -58,8 +58,7 @@
                                     }
                                     var img = document.createElement("img");
                                     img.src = "files/" + obj.filnavn;
-                                    img.hight = 200;
-                                    img.width = 200;
+                                    img.setAttribute("style", "max-width: 175px; max-height: 175px;");
                                     img.onclick = function (event) {
                                         window.location.href = "/bilde?bilde=" + obj.id;
                                     };
@@ -81,7 +80,7 @@
 <body>
     <h1>Fotoalbum</h1>
     <input type="button" id="innlogging" value="Innlogging Fotograf" onclick="location.href='/fotograf'"/>
-    <input type="text" id="sokefelt" class="sokfelt" placeholder="Skriv inn ønsket søk" pattern="[a-zA-Z]{2}" onkeyup="sok()"/>
+    <input type="text" id="sokefelt" class="sokfelt" placeholder="Skriv inn ønsket søk" onkeyup="sok()"/>
     <input type="submit" value="Søk" class="sokfeltknapp" onclick="sok()"/>
     <br/>
     <table id="tabell" >
@@ -97,7 +96,7 @@
             <td >
                 <a th:each="k : ${f.tags}" th:href="@{'/tag?tag='}+${k}"><span th:text="${k}" style="font-size: 15px"></span></a>
             </td>
-            <td ><a th:href="@{/bilde?bilde=}+${f.id}"><img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" /></a></td>
+            <td ><a th:href="@{/bilde?bilde=}+${f.id}"><img th:src="@{/files/}+${f.filnavn}" style="max-width: 175px; max-height: 175px" /></a></td>
         </tr>
     </table>
 </body>
