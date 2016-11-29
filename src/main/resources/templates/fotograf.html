@@ -18,7 +18,7 @@
                 if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     var slettdiv= document.getElementById(id);
                     if (xmlHttp.responseText == "slettet"){
-                        window.alert("Slettet");
+                        //window.alert("Slettet");
                         slettdiv.parentNode.removeChild(slettdiv);
                     }
                     else {

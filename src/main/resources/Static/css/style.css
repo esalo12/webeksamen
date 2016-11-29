@@ -1,4 +1,96 @@
+body{
+    width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 h1{
-    color: aqua;
-    font-size: 40px;
+    color: #4CAF50;
+    font-size: 60px;
+    margin: 0px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+#innlogging {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #4CAF50;
+    float: left;
+}
+
+#innlogging:hover {
+    background-color: #4CAF50;
+}
+
+#innlogging:active {
+    background-color: #4CAF50;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+.sokfeltknapp {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #4CAF50;
+    float: right;
+}
+
+.sokfeltknapp:hover {
+    background-color: #4CAF50;
+}
+
+.sokfeltknapp:active {
+    background-color: #4CAF50;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+.sokfelt {
+    background-color: lightgreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    width: 30%;
+    margin-left: 20%;
+}
+
+table {
+    table-layout : fixed;
+    border-collapse: collapse;
+    border-color: lightgreen;
+    width: 80%;
+    margin: 0px auto;
+}
+th {
+    background-color: lightgreen;
+    color: white;
+    font-size: 25px;
+}
+td {
+    width: 25%;
+}
+tr {
+    border: solid thin;
+    text-align: center;
+    font-size: 20px;
 }

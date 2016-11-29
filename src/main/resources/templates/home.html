@@ -4,24 +4,6 @@
     <meta charset="UTF-8" />
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <style>
-        table {
-            table-layout : fixed;
-            border-collapse: collapse;
-            width: 70%;
-        }
-        th {
-            font-size: 25px;
-        }
-        td {
-            width: 25%;
-        }
-        tr {
-            border: solid thin;
-            text-align: center;
-            font-size: 20px;
-        }
-    </style>
     <script>
         /*<![CDATA[*/
             function sok() {
@@ -82,10 +64,9 @@
 </head>
 <body>
     <h1>Fotoalbum</h1>
-    <input type="button" id="innlogging" value="Innlogging Fototgraf" onclick="location.href='/fotograf'"/>
-    <h2>Søkefelt</h2>
-        <input type="text" id="sokefelt" pattern="[a-zA-Z]{2}" onkeyup="sok()"/>
-        <input type="submit" value="Søk" onclick="sok()"/>
+    <input type="button" id="innlogging" value="Innlogging Fotograf" onclick="location.href='/fotograf'"/>
+    <input type="text" id="sokefelt" class="sokfelt" value="Skriv inn ønsket søk" pattern="[a-zA-Z]{2}" onkeyup="sok()"/>
+    <input type="submit" value="Søk" class="sokfeltknapp" onclick="sok()"/>
 
     <ul id="liste">
     </ul>
