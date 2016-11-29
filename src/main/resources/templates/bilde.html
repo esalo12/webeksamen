@@ -75,6 +75,8 @@
 <body>
     <h1 th:text="${bilde.tittel}"></h1>
     <br />
+    <a href="/home">Hjem</a>
+    <br />
     <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
     <div><span id="kamera"></span> </div>
     <div><span id="opplosning"></span></div>

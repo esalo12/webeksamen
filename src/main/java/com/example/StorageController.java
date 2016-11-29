@@ -20,8 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -78,6 +76,7 @@ public class StorageController {
         Foto foto = new Foto(tittel, fotgraf.getId());
         foto.setFiltype(file.getContentType().split("\\/")[1]);
         foto.setTittel(tittel);
+        foto.setFotografnavn(fotgraf.getFornavn()+" "+fotgraf.getEtternavn());
         foto.setDato();
         foto.setStorrelse(file.getBytes().length/1024);
         foto.setTags(new ArrayList<>());

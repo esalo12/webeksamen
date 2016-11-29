@@ -3,6 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+    <style>
+        table {
+            table-layout : fixed;
+            border-collapse: collapse;
+            width: 70%;
+        }
+        th {
+            font-size: 25px;
+        }
+        td {
+            width: 25%;
+        }
+        tr {
+            border: solid thin;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
     <script>
         /*<![CDATA[*/
             function sok() {
@@ -10,22 +28,46 @@
                 if (sokeord.length >= 2){
                     var xmlHttp = new XMLHttpRequest();
                     xmlHttp.onreadystatechange = function () {
+                        var tabell = document.getElementById("tabell");
                         var liste = document.getElementById("liste");
                         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                             json = JSON.parse(xmlHttp.responseText);
+                            tabell.innerHTML="";
                             liste.innerHTML="";
-                            json.forEach(function (entry) {
-                                var li = document.createElement("li");
+                            var rad1 = document.createElement("tr");
+                            var celle1 = document.createElement("th");
+                            var celle2 = document.createElement("th");
+                            var celle3 = document.createElement("th");
+                            var fotgrf = document.createTextNode("Fotograf");
+                            var titl = document.createTextNode("Tittel");
+                            var bild = document.createTextNode("Bilde");
+                            celle1.appendChild(fotgrf);
+                            celle2.appendChild(titl);
+                            celle3.appendChild(bild);
+                            rad1.appendChild(celle1);
+                            rad1.appendChild(celle2);
+                            rad1.appendChild(celle3);
+                            tabell.appendChild(rad1);
+                            var i = 1;
+                            json.forEach(function(obj){
+                                var rader = tabell.insertRow(i);
+                                var celler1 = rader.insertCell(0);
+                                var celler2 = rader.insertCell(1);
+                                var celler3 = rader.insertCell(2);
+                                var fotograf = document.createElement("a");
+                                fotograf.href='/finn?fgraf='+obj.fotografId;
+                                fotograf.text=obj.fotografnavn;
+                                var tittelen = document.createTextNode(obj.tittel);
                                 var img = document.createElement("img");
-                                img.src="files/"+entry.filnavn;
-                                img.hight=100;
-                                img.width=100;
+                                img.src="files/"+obj.filnavn;
+                                img.hight=200;
+                                img.width=200;
                                 img.onclick = function (event) {
-                                    window.location.href = "/bilde?bilde="+entry.id;
-                                }
-                                li.innerHTML= entry.tittel;
-                                li.appendChild(img);
-                                liste.appendChild(li);
+                                    window.location.href = "/bilde?bilde="+obj.id;
+                                };
+                                celler1.appendChild(fotograf);
+                                celler2.appendChild(tittelen);
+                                celler3.appendChild(img);
                             });
                         }
                     };
@@ -46,5 +88,23 @@
 
     <ul id="liste">
     </ul>
+    <p>Click the buttons to create and delete row(s) for the table.</p>
+
+    <table id="tabell" >
+        <tr th:if="${liste}" >
+            <th >Fotograf</th>
+            <th>Tittel</th>
+            <th>Tagger</th>
+            <th>Bilde</th>
+        </tr>
+        <tr th:each="f : ${liste}">
+            <td ><a th:href="@{'/finn?fgraf='}+${f.fotografId}" th:text="${f.fotografnavn}"></a></td>
+            <td th:text="${f.tittel}"></td>
+            <td >
+                <a th:each="k : ${f.tags}" th:href="@{'/tag?tag='}+${k}"><span th:text="${k}" style="font-size: 15px"></span></a>
+            </td>
+            <td ><a th:href="@{/bilde?bilde=}+${f.id}"><img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" /></a></td>
+        </tr>
+    </table>
 </body>
 </html>

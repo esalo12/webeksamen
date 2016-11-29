@@ -15,6 +15,7 @@ public class Foto {
 
     String tittel;
     String fotografId;
+    String fotografnavn;
     String filtype;
     String filnavn;
     Integer storrelse;
@@ -46,6 +47,14 @@ public class Foto {
 
     public void setFotografId(String fotografId) {
         this.fotografId = fotografId;
+    }
+
+    public String getFotografnavn() {
+        return fotografnavn;
+    }
+
+    public void setFotografnavn(String fotografnavn) {
+        this.fotografnavn = fotografnavn;
     }
 
     public Date getDato() {

@@ -2,14 +2,16 @@ package com.example;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +24,7 @@ public class WebController {
     FotoRepository fotoRepository;
 
     @RequestMapping(path = "/sok", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
+    public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
         List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsStartsWithIgnoreCase(sokeord, sokeord);
         List<Fotograf> fliste = fotografRepository.findAllByFornavnStartsWithIgnoreCaseOrEtternavnStartsWithIgnoreCase(sokeord, sokeord);
@@ -43,6 +44,28 @@ public class WebController {
             }
         }
         return fotoList;
+    }
+    @RequestMapping(path = "/finn", method = RequestMethod.GET)
+    public ModelAndView getSamling(@RequestParam(value = "fgraf")String id){
+        List<Foto> listen = fotoRepository.findAllByFotografId(id);
+        ModelAndView mav =  new ModelAndView();
+        mav.setViewName("home");
+        mav.addObject("liste", listen);
+        return mav;
+    }
+
+    @RequestMapping(path = "/tag", method = RequestMethod.GET)
+    public ModelAndView getTagger(@RequestParam(value = "tag")String id){
+        List<Foto> listen = fotoRepository.findAllByTags(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home");
+        mav.addObject("liste", listen);
+        return mav;
+    }
+
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    public String start(){
+        return "home";
     }
 
     @RequestMapping(path = "/bilde", method = RequestMethod.GET)
