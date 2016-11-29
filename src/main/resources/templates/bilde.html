@@ -74,10 +74,11 @@
 </head>
 <body>
     <h1 th:text="${bilde.tittel}"></h1>
-    <br />
+    <br/>
     <a href="/home">Hjem</a>
-    <br />
+    <br/>
     <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
+    <div>Fotograf: <span th:text="${bilde.fotografnavn}"></span></div>
     <div><span id="kamera"></span> </div>
     <div><span id="opplosning"></span></div>
     <div>Bildeformat: <span id="type" th:text="${bilde.filtype}"></span></div>
