@@ -36,7 +36,7 @@
 
 </head>
 <body>
-    <h1>Fotograf</h1>
+    <h1 th:inline="text">Innlogget som: '[[${#httpServletRequest.remoteUser}]]'</h1>
     <button id="nyttFoto" onclick="location.href='/nyttbilde'">Legg til bilde</button>
 
     <div id="lista" >

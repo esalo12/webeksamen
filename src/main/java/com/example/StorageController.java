@@ -79,7 +79,11 @@ public class StorageController {
         foto.setFotografnavn(fotgraf.getFornavn()+" "+fotgraf.getEtternavn());
         foto.setDato();
         foto.setStorrelse(file.getBytes().length/1024);
-        foto.setTags(new ArrayList<>());
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add("Test");
+        lista.add("Sommer");
+        lista.add("Ferie");
+        foto.setTags(lista);
         foto.setKommentarer();
         System.out.println(foto.getTittel()+", "+foto.getDato()+" "+file.getSize());
         fotoRepository.save(foto);

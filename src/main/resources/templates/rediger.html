@@ -45,8 +45,14 @@
     </script>
 </head>
 <body>
-<h1 th:text="${bilde.tittel}"></h1>
+<h1>Redigering</h1>
+<a href="/fotograf">Hjem</a>
+<h2 th:text="'Bilde tittel: '+${bilde.tittel}" th:name="${bilde.tittel}"></h2>
 <br />
+<form th:action="@{/endre}" method="post">
+
+</form>
+
 <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
 
 <div id="kommentarer" >

@@ -12,11 +12,9 @@
                     var xmlHttp = new XMLHttpRequest();
                     xmlHttp.onreadystatechange = function () {
                         var tabell = document.getElementById("tabell");
-                        var liste = document.getElementById("liste");
                         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                             json = JSON.parse(xmlHttp.responseText);
                             tabell.innerHTML="";
-                            liste.innerHTML="";
                             var rad1 = document.createElement("tr");
                             var celle1 = document.createElement("th");
                             var celle2 = document.createElement("th");
@@ -67,11 +65,7 @@
     <input type="button" id="innlogging" value="Innlogging Fotograf" onclick="location.href='/fotograf'"/>
     <input type="text" id="sokefelt" class="sokfelt" value="Skriv inn ønsket søk" pattern="[a-zA-Z]{2}" onkeyup="sok()"/>
     <input type="submit" value="Søk" class="sokfeltknapp" onclick="sok()"/>
-
-    <ul id="liste">
-    </ul>
-    <p>Click the buttons to create and delete row(s) for the table.</p>
-
+    <br/>
     <table id="tabell" >
         <tr th:if="${liste}" >
             <th >Fotograf</th>

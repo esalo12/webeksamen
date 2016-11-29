@@ -2,6 +2,7 @@ package com.example;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class WebController {
     @RequestMapping(path = "/sok", method = RequestMethod.GET)
     public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
-        List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsStartsWithIgnoreCase(sokeord, sokeord);
+        List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsContains(sokeord, sokeord);
         List<Fotograf> fliste = fotografRepository.findAllByFornavnStartsWithIgnoreCaseOrEtternavnStartsWithIgnoreCase(sokeord, sokeord);
         for(Fotograf f : fliste){
             List<Foto> fgrafBilder = fotoRepository.findAllByFotografId(f.getId());
@@ -56,7 +57,7 @@ public class WebController {
 
     @RequestMapping(path = "/tag", method = RequestMethod.GET)
     public ModelAndView getTagger(@RequestParam(value = "tag")String id){
-        List<Foto> listen = fotoRepository.findAllByTags(id);
+        List<Foto> listen = fotoRepository.findAllByTagsStartsWithIgnoreCase(id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home");
         mav.addObject("liste", listen);
