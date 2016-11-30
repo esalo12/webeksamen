@@ -2,23 +2,29 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/styleLogin.css"/>
+    <title>Login</title>
 </head>
 
 <body>
-<div th:if="${param.error}">
-    Ugyldig brukernavn og/eller passord
-</div>
-<div th:if="${param.logout}">
-    Du er logget ut!
-    <br/>
-    <a href="/">Hjem</a>
-
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> Brukernavn: <input type="text" name="username"/> </label></div>
-    <div><label> Passord : <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Logg inn"/></div>
-</form>
+    <div th:if="${param.error}">
+        <h2>Ugyldig brukernavn og/eller passord</h2>
+    </div>
+    <div th:if="${param.logout}">
+        <h2>Du er logget ut!</h2>
+        <br/>
+        <a href="/">Hjem</a>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div>
+            <h1 id="logginn">Logg inn </h1>
+            <input type="text" placeholder="Brukernavn" name="username"/>
+            <input type="password" placeholder="Passord" name="password"/>
+            <input type="submit" value="Logg inn"/>
+        </div>
+    </form>
+    <div>
+        <a href="/nybruker">Registrer ny bruker</a>
+    </div>
 </body>
 </html>

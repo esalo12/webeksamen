@@ -6,7 +6,7 @@
     <meta id="token" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- ... -->
-
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <title>Fotograf</title>
     <script>
         /*<![CDATA[*/
@@ -36,19 +36,21 @@
 
 </head>
 <body>
-    <h1 th:inline="text">Innlogget som: '[[${#httpServletRequest.remoteUser}]]'</h1>
+    <h1 th:inline="text">Fotograf innlogget som: '[[${#httpServletRequest.remoteUser}]]'</h1>
     <button id="nyttFoto" onclick="location.href='/nyttbilde'">Legg til bilde</button>
 
     <div id="lista" >
         <div th:each="f : ${liste}">
             <div th:id="${f.id}" >
+                <br/>
                 <text>-------------------------------</text>
                 <br/>
                 <p th:text="${f.tittel}" />
                 <a th:href="@{/rediger?id=}+${f.id}">
-                <img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" />
+                    <img th:src="@{/files/}+${f.filnavn}" style="max-width: 100px" />
                 </a>
-                <button th:name="${f.id}" onclick="slett(this.name)">Slett</button>
+                <br/>
+                <button th:name="${f.id}" id="slettKnapp" onclick="slett(this.name)">Slett</button>
             </div>
 
         </div>
