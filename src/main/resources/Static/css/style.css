@@ -36,7 +36,7 @@ h1{
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
-#nyttFoto {
+#nyttFoto, #loggut {
     display: inline-block;
     padding: 15px 25px;
     font-size: 20px;
@@ -49,18 +49,24 @@ h1{
     border: none;
     border-radius: 15px;
     box-shadow: 0 5px #4CAF50;
-    float: none;
 }
 
-#nyttFoto:hover {
+#nyttFoto:hover, #loggut:hover {
     background-color: #4CAF50;
 }
 
-#nyttFoto:active {
+#nyttFoto:active, #loggut:active {
     background-color: #4CAF50;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+#nyttFoto {
+    float: none;
+}
+#loggut {
+    float: left;
+}
+
 #slettKnapp {
     display: inline-block;
     padding: 10px 15px;
@@ -139,6 +145,7 @@ th {
 }
 td {
     width: 25%;
+    overflow-wrap: break-word;
 }
 tr {
     border: solid thin;
