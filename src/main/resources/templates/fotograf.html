@@ -37,6 +37,9 @@
 </head>
 <body>
     <h1 th:inline="text">Fotograf innlogget som: '[[${#httpServletRequest.remoteUser}]]'</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logg ut"/>
+    </form>
     <button id="nyttFoto" onclick="location.href='/nyttbilde'">Legg til bilde</button>
 
     <div id="lista" >

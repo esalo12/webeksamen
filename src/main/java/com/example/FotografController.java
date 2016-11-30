@@ -73,18 +73,25 @@ public class FotografController {
 
     @RequestMapping(path = "/rediger", method = RequestMethod.GET)
     public ModelAndView finn(@RequestParam(value = "id") String id, ModelAndView mav){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
         Foto foto =  fotoRepository.findById(id);
-        if( !fgraf.getId().equals(foto.getFotografId())) {
+        /*if( !fgraf.getId().equals(foto.getFotografId())) {
             return new ModelAndView("rediger");
         }
-        else{
+        else{*/
             mav.setViewName("rediger");
             mav.addObject("bilde", foto);
             return mav;
-        }
+        //}
     }
+
+    @RequestMapping(path = "/endre", method = RequestMethod.POST)
+    public String endre(@RequestParam(value = "tags") String tags ){
+        System.out.println(tags);
+        return "endre";
+    }
+
     @RequestMapping(path = "/rediger", method = RequestMethod.POST)
     public String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam( value = "tags")List tags){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

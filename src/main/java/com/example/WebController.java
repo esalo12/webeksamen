@@ -57,7 +57,7 @@ public class WebController {
 
     @RequestMapping(path = "/tag", method = RequestMethod.GET)
     public ModelAndView getTagger(@RequestParam(value = "tag")String id){
-        List<Foto> listen = fotoRepository.findAllByTagsStartsWithIgnoreCase(id);
+        List<Foto> listen = fotoRepository.findAllByTagsIgnoreCase(id);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home");
         mav.addObject("liste", listen);
