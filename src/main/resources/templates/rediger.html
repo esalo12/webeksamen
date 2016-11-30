@@ -91,6 +91,10 @@
             xmlHttp.setRequestHeader(headerName, token);
             xmlHttp.send("id="+id+"&tittel="+tittel+"&tags="+liste);
         }
+        function angre() {
+            history.go(0);
+
+        }
         /*]]>*/
     </script>
 </head>
@@ -113,7 +117,7 @@
         <br/>
         <br/>
         <button class="knapp" id="la" onclick="lagreEndring()">Lagre endring</button>
-        <button class="knapp" id="an">Angre</button>
+        <button class="knapp" id="an" onclick="angre()">Angre</button>
         <br/>
     </div>
     <br/>
