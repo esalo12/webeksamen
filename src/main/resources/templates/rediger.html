@@ -49,7 +49,8 @@
 
         }
         function leggTilTag() {
-            var nytag = document.getElementById("nytag").value;
+            var tag = document.getElementById("nytag");
+            var nytag = tag.value;
             var rad = document.getElementById("rad");
             var nycelle = document.createElement("td");
             var tekst = document.createElement("text");
@@ -58,6 +59,7 @@
             tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
             nycelle.appendChild(tekst);
             rad.appendChild(nycelle);
+            tag.value="";
             console.log(nytag);
 
         }
