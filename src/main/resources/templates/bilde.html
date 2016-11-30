@@ -46,7 +46,7 @@
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     nynavn.value="";
                     nykommentar.value="";
-                    json = JSON.parse(xmlHttp.responseText);
+                    var json = JSON.parse(xmlHttp.responseText);
                     console.log(JSON.stringify(json));
                     var div = document.getElementById("kommentarer");
                     var linje = document.createElement("text");

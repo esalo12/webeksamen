@@ -14,10 +14,12 @@
             var token = document.getElementById("token").getAttribute("content");
             var headerName = document.getElementById("headerName").getAttribute("content");
             var bilde = document.getElementById("bilde").name;
+            var kommentar = document.getElementById(id);
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     console.log(xmlHttp.responseText);
+                    kommentar.parentNode.removeChild(kommentar);
                 }
             };
             xmlHttp.open("POST", "/kommentar/slett", true);
@@ -54,14 +56,15 @@
             var rad = document.getElementById("rad");
             var nycelle = document.createElement("td");
             var tekst = document.createElement("text");
-            nycelle.id=nytag;
-            tekst.innerHTML=nytag;
-            tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
-            nycelle.appendChild(tekst);
-            rad.appendChild(nycelle);
-            tag.value="";
+            if ( nytag != ""){
+                nycelle.id=nytag;
+                tekst.innerHTML=nytag;
+                tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
+                nycelle.appendChild(tekst);
+                rad.appendChild(nycelle);
+                tag.value="";
+            }
             console.log(nytag);
-
         }
 
         function lagreEndring() {

@@ -48,11 +48,18 @@ public class FotografController {
     }
     @RequestMapping(path = "/kommentar/slett", method = RequestMethod.POST)
     public @ResponseBody String slettTil(@RequestParam(value = "id")String id, @RequestParam(value = "bilde")String bildeid){
-        Foto foto = fotoRepository.findById(bildeid);
-        System.out.println(bildeid+" "+id);
-        foto.slettKommentar(id);
-        fotoRepository.save(foto);
-        return "slettet";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        Foto foto =  fotoRepository.findById(bildeid);
+        if( !fgraf.getId().equals(foto.getFotografId())) {
+            return "Noe ble feil";
+        }
+        else {
+            System.out.println(bildeid+" "+id);
+            foto.slettKommentar(id);
+            fotoRepository.save(foto);
+            return "slettet";
+        }
     }
 
     @RequestMapping(path = "/fotograf", method = RequestMethod.GET)

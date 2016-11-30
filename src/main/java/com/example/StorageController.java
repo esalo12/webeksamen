@@ -79,9 +79,12 @@ public class StorageController {
         foto.setTittel(tittel);
         foto.setFotografnavn(fotgraf.getFornavn()+" "+fotgraf.getEtternavn());
         foto.setDato();
+        foto.setTags(new ArrayList<>());
         foto.setStorrelse(file.getBytes().length/1024);
-        ArrayList<String> lista = new ArrayList<>(Arrays.asList(tagger.split(" ")));
-        foto.setTags(lista);
+        if ( !tagger.equals("")){
+            ArrayList<String> lista = new ArrayList<>(Arrays.asList(tagger.split(" ")));
+            foto.setTags(lista);
+        }
         foto.setKommentarer();
         System.out.println(foto.getTittel()+", "+foto.getDato()+" "+file.getSize());
         fotoRepository.save(foto);
