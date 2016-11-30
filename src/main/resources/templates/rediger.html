@@ -6,7 +6,8 @@
     <meta id="token" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="headerName" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- ... -->
-    <title>Bilde</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <title>Rediger</title>
     <script src="/script/exif.js"></script>
     <script>
         /*<![CDATA[*/
@@ -94,38 +95,42 @@
     </script>
 </head>
 <body>
-<h1>Redigering</h1>
-<a href="/fotograf">Hjem</a>
-<h2 th:text="'Bilde tittel: '+${bilde.tittel}" th:name="${bilde.tittel}"></h2>
-<br />
-<input type="text" th:name="${bilde.id}" id="tittel" th:value="${bilde.tittel}" />
-<table id="tabell" >
-    <tr id="rad" >
-        <td th:each="tag : ${bilde.tags}" th:id="${tag}">
-            <text th:text="${tag}" onclick="fjernTag(this.parentNode.id)" ></text>
-        </td>
-    </tr>
-</table>
-<br/>
-<input id="nytag" type="text" /><button onclick="leggTilTag()">Legg til tag</button>
-<br/>
-<button onclick="lagreEndring()">Lagre endring</button>
-<button >Angre</button>
-<br/>
+    <h1>Redigering</h1>
+    <a href="/fotograf">Hjem</a>
+    <div id="redi">
+        <h2 th:text="'Bilde tittel: '+${bilde.tittel}" th:name="${bilde.tittel}"></h2>
+        <h4>Endre tittel</h4>
+        <input type="text" th:name="${bilde.id}" id="tittel" th:value="${bilde.tittel}" />
+        <h4>Trykk på tag for å slette</h4>
+        <table id="tabell" >
+            <tr id="rad" >
+                <td th:each="tag : ${bilde.tags}" th:id="${tag}">
+                    <text th:text="${tag}" onclick="fjernTag(this.parentNode.id)" ></text>
+                </td>
+            </tr>
+        </table>
+        <input id="nytag" type="text" placeholder="Skriv inn ny tag"/><button class="knapp" onclick="leggTilTag()">Legg til tag</button>
+        <br/>
+        <br/>
+        <button class="knapp" id="la" onclick="lagreEndring()">Lagre endring</button>
+        <button class="knapp" id="an">Angre</button>
+        <br/>
+    </div>
+    <br/>
+    <br/>
+    <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
 
-<img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
-
-<div id="kommentarer" >
-    <div th:each="k : ${bilde.kommentarer}" >
-        <div th:id="${k.id}">
-            <text>____________________________________</text>
-            <p th:text="${k.dato}"></p>
-            <p th:text="${k.navn}+': '"></p>
-            <p th:text="${k.kommentar}"></p>
-            <button th:name="${k.id}" onclick="slettKommentar(this.name)">Slett</button>
+    <div id="kommentarer" >
+        <div th:each="k : ${bilde.kommentarer}" >
+            <div th:id="${k.id}">
+                <text>____________________________________</text>
+                <p th:text="${k.dato}"></p>
+                <p th:text="${k.navn}+': '"></p>
+                <p th:text="${k.kommentar}"></p>
+                <button th:name="${k.id}" class="knapp" onclick="slettKommentar(this.name)">Slett</button>
+            </div>
         </div>
     </div>
-</div>
 
 
 </body>

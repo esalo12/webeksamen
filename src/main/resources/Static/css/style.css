@@ -169,7 +169,10 @@ h2 {
     color: white;
     font-size: 25px;
 }
-#komm{
+h4 {
+    margin-bottom: 1px;
+}
+#komm, #redi{
     max-width: 800px;
     width: 100%;
     border-radius: 5px;
@@ -200,7 +203,7 @@ input[type=button]:active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
-#navn, #kommentar {
+#navn, #kommentar, #tittel, #nytag, #kommentarer {
     width: 90%;
     padding: 12px 20px;
     margin: 8px 4px;
@@ -210,6 +213,37 @@ input[type=button]:active {
     box-sizing: border-box;
     font-size: 14px;
 }
-#navn {
+#navn, #tittel, #nytag {
     width: 40%;
+}
+.knapp {
+    width: 20%;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #4CAF50;
+}
+
+.knapp:hover {
+    background-color: #45a049;
+    box-shadow: 0 5px #4CAF50;
+}
+.knapp:active {
+    background-color: #4CAF50;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+#la, #an {
+    width: 30%;
+}
+#tabell {
+    margin-top: 10px;
 }
