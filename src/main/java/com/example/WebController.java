@@ -27,7 +27,7 @@ public class WebController {
     @RequestMapping(path = "/sok", method = RequestMethod.GET)
     public @ResponseBody List<Foto> finn(@RequestParam(value = "sokeord") String sokeord){
         System.out.println(sokeord);
-        List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsContains(sokeord, sokeord);
+        List<Foto> fotoList = fotoRepository.findAllByTittelStartsWithIgnoreCaseOrTagsIgnoreCase(sokeord, sokeord);
         List<Fotograf> fliste = fotografRepository.findAllByFornavnStartsWithIgnoreCaseOrEtternavnStartsWithIgnoreCase(sokeord, sokeord);
         for(Fotograf f : fliste){
             List<Foto> fgrafBilder = fotoRepository.findAllByFotografId(f.getId());

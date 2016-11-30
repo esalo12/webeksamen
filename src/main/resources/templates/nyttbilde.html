@@ -10,13 +10,15 @@
 
 <form th:action="@{/}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <p>Sett tittel</p>
-    <input type="text" name="tittel" />
     <p>Last opp bilde</p>
     <input type="file" required='required' name="file" value="Velg" />
     <br />
+    <p>Sett tittel</p>
+    <input type="text" name="tittel" />
+    <p>Tagger</p>
+    <textarea name="tagger" ></textarea>
+    <br/>
     <input type="submit" value="Lagre"/>
 </form>
-
 </body>
 </html>

@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 
@@ -64,7 +65,7 @@ public class StorageController {
 
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file")MultipartFile file, @RequestParam("tittel") String tittel,
+    public String handleFileUpload(@RequestParam("file")MultipartFile file, @RequestParam(value = "tittel") String tittel, @RequestParam(value = "tagger")String tagger,
                                    RedirectAttributes redirectAttributes) throws IOException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Fotograf fotgraf = fotografRepository.findByBrukernavn(user.getUsername());
@@ -79,10 +80,7 @@ public class StorageController {
         foto.setFotografnavn(fotgraf.getFornavn()+" "+fotgraf.getEtternavn());
         foto.setDato();
         foto.setStorrelse(file.getBytes().length/1024);
-        ArrayList<String> lista = new ArrayList<>();
-        lista.add("Test");
-        lista.add("Sommer");
-        lista.add("Ferie");
+        ArrayList<String> lista = new ArrayList<>(Arrays.asList(tagger.split(" ")));
         foto.setTags(lista);
         foto.setKommentarer();
         System.out.println(foto.getTittel()+", "+foto.getDato()+" "+file.getSize());
