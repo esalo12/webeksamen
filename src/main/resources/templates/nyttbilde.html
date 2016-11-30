@@ -2,23 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8" />
-
-
+    <link rel="stylesheet" type="text/css" href="css/styleLogin.css"/>
     <title>Nytt Bilde</title>
 </head>
 <body>
-
-<form th:action="@{/}" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <p>Last opp bilde</p>
-    <input type="file" required='required' name="file" value="Velg" />
-    <br />
-    <p>Sett tittel</p>
-    <input type="text" name="tittel" />
-    <p>Tagger</p>
-    <textarea name="tagger" ></textarea>
-    <br/>
-    <input type="submit" value="Lagre"/>
-</form>
+    <form th:action="@{/}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <div>
+            <h1>Last opp bilde</h1>
+            <input type="file" required='required' name="file" value="Velg" />
+            <input type="text" placeholder="Skriv inn tittel" name="tittel" />
+            <textarea name="tagger" placeholder="Skriv inn tagger med mellomrom i mellom"></textarea>
+            <br/>
+            <input type="submit" value="Lagre bilde"/>
+        </div>
+    </form>
 </body>
 </html>

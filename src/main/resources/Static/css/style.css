@@ -157,3 +157,59 @@ p {
     text-align: center;
     color: navy;
 }
+#metadata {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+
+}
+h2 {
+    background-color: lightgreen;
+    color: white;
+    font-size: 25px;
+}
+#komm{
+    max-width: 800px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+input[type=button] {
+    width: 90%;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #4CAF50;
+}
+
+input[type=button]:hover {
+    background-color: #45a049;
+    box-shadow: 0 5px #4CAF50;
+}
+input[type=button]:active {
+    background-color: #4CAF50;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+#navn, #kommentar {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 4px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+#navn {
+    width: 40%;
+}
