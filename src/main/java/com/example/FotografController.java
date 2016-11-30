@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import java.util.List;
 
@@ -86,16 +87,12 @@ public class FotografController {
         //}
     }
 
-    @RequestMapping(path = "/endre", method = RequestMethod.POST)
-    public String endre(@RequestParam(value = "tags") String tags ){
-        System.out.println(tags);
-        return "endre";
-    }
-
     @RequestMapping(path = "/rediger", method = RequestMethod.POST)
-    public String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam( value = "tags")List tags){
+    public @ResponseBody String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam(value = "tags")List tags){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
+        String ttl = tittel;
+        System.out.println(ttl);
         Foto foto =  fotoRepository.findById(id);
         if( !fgraf.getId().equals(foto.getFotografId())) {
             return "error";
@@ -104,7 +101,7 @@ public class FotografController {
             foto.setTittel(tittel);
             foto.setTags(tags);
             fotoRepository.save(foto);
-            return "rediger";
+            return "lagret";
         }
     }
 }

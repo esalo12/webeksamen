@@ -41,22 +41,38 @@
             xmlHttp.setRequestHeader(headerName, token);
             xmlHttp.send("id="+id+"&bilde="+bilde);
         }
-        function fjern(id) {
+        function fjernTag(id) {
             console.log(id);
             var rad = document.getElementById("rad");
             var fjerntag = document.getElementById(id);
             rad.removeChild(fjerntag);
+
         }
-        function lagreTagger() {
+        function leggTilTag() {
+            var nytag = document.getElementById("nytag").value;
+            var rad = document.getElementById("rad");
+            var nycelle = document.createElement("td");
+            var tekst = document.createElement("text");
+            nycelle.id=nytag;
+            tekst.innerHTML=nytag;
+            tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
+            nycelle.appendChild(tekst);
+            rad.appendChild(nycelle);
+            console.log(nytag);
+
+        }
+
+        function lagreEndring() {
             var token = document.getElementById("token").getAttribute("content");
             var headerName = document.getElementById("headerName").getAttribute("content");
+            var tittel = document.getElementById("tittel").value;
+            var id = document.getElementById("tittel").name;
+            console.log(id);
             var rad = document.getElementById("rad");
             var liste = new Array();
-            console.log(rad.childElementCount)
             for ( var i= 0; i < rad.childElementCount; i++){
-                console.log(rad.cells[i].id);
-
-                //liste.push(cell.value);
+                var tag = rad.cells[i].id;
+                liste.push(tag);
             }
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
@@ -64,10 +80,10 @@
                     console.log(xmlHttp.responseText);
                 }
             };
-            xmlHttp.open("POST", "/endre", true);
+            xmlHttp.open("POST", "/rediger", true);
             xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlHttp.setRequestHeader(headerName, token);
-            xmlHttp.send("tags="+liste);
+            xmlHttp.send("id="+id+"&tittel="+tittel+"&tags="+liste);
         }
         /*]]>*/
     </script>
@@ -77,15 +93,20 @@
 <a href="/fotograf">Hjem</a>
 <h2 th:text="'Bilde tittel: '+${bilde.tittel}" th:name="${bilde.tittel}"></h2>
 <br />
-<table id="tabell" style="max-width: 30px;" >
+<input type="text" th:name="${bilde.id}" id="tittel" th:value="${bilde.tittel}" />
+<table id="tabell" >
     <tr id="rad" >
-        <td th:each="tag : ${bilde.tags}" th:name="${tag}" th:value="${tag}" th:id="${tag}">
-            <text th:text="${tag}" th:onclick="'javascript:fjern(\'' + ${tag} +'\');'" ></text>
+        <td th:each="tag : ${bilde.tags}" th:id="${tag}">
+            <text th:text="${tag}" onclick="fjernTag(this.parentNode.id)" ></text>
         </td>
     </tr>
 </table>
 <br/>
-<button onclick="lagreTagger()">Lagre tagger</button>
+<input id="nytag" type="text" /><button onclick="leggTilTag()">Legg til tag</button>
+<br/>
+<button onclick="lagreEndring()">Lagre endring</button>
+<button >Angre</button>
+<br/>
 
 <img style="max-width: 1000px" th:src="@{/files/}+${bilde.filnavn}" id="bilde" th:name="${bilde.id}"/>
 
