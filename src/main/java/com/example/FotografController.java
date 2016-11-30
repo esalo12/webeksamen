@@ -91,8 +91,6 @@ public class FotografController {
     public @ResponseBody String lagreEndring(@RequestParam(value = "id") String id, @RequestParam(value = "tittel") String tittel, @RequestParam(value = "tags")List tags){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Fotograf fgraf = fotografRepository.findByBrukernavn(user.getUsername());
-        String ttl = tittel;
-        System.out.println(ttl);
         Foto foto =  fotoRepository.findById(id);
         if( !fgraf.getId().equals(foto.getFotografId())) {
             return "error";
