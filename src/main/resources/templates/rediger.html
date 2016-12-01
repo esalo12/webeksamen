@@ -57,7 +57,7 @@
             var rad = document.getElementById("rad");
             var nycelle = document.createElement("td");
             var tekst = document.createElement("text");
-            if ( nytag != "" && nytag.charAt(0) != "<" ){
+            if ( nytag != "" && nytag.charAt(0) != "<"){
                 nycelle.id=nytag;
                 tekst.innerHTML=nytag;
                 tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
