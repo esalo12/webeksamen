@@ -57,7 +57,7 @@
             var rad = document.getElementById("rad");
             var nycelle = document.createElement("td");
             var tekst = document.createElement("text");
-            if ( nytag != ""){
+            if ( nytag != "" && nytag.charAt(0) != "<" ){
                 nycelle.id=nytag;
                 tekst.innerHTML=nytag;
                 tekst.setAttribute("onclick", "fjernTag(this.parentNode.id)");
@@ -113,7 +113,7 @@
                 </td>
             </tr>
         </table>
-        <input id="nytag" type="text" placeholder="Skriv inn ny tag"/><button class="knapp" onclick="leggTilTag()">Legg til tag</button>
+        <input id="nytag" type="text" placeholder="Skriv inn ny tag" /><button class="knapp" onclick="leggTilTag()">Legg til tag</button>
         <br/>
         <br/>
         <button class="knapp" id="la" onclick="lagreEndring()">Lagre endring</button>
