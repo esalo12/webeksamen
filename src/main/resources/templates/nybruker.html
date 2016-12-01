@@ -17,10 +17,10 @@
     <form th:action="@{/nybruker}" method="post">
         <div>
             <h1>Registrer ny bruker</h1>
-            <input type="text" placeholder="Fornavn" name="fornavn"/>
-            <input type="text" placeholder="Etternavn" name="etternavn"/>
-            <input type="text" placeholder="Brukernavn" name="brukernavn"/>
-            <input type="password" placeholder="Passord" name="passord"/>
+            <input type="text" required="required" placeholder="Fornavn" name="fornavn"/>
+            <input type="text" required="required" placeholder="Etternavn" name="etternavn"/>
+            <input type="text" required="required" placeholder="Brukernavn" name="brukernavn"/>
+            <input type="password" required="required" placeholder="Passord" name="passord"/>
             <input type="submit" value="Opprett bruker"/>
         </div>
     </form>
