@@ -94,7 +94,7 @@
             <td ><a th:href="@{'/finn?fgraf='}+${f.fotografId}" th:text="${f.fotografnavn}"></a></td>
             <td th:text="${f.tittel}"></td>
             <td >
-                <a th:each="k : ${f.tags}" th:href="@{'/tag?tag='}+${k}"><span th:text="${k}" style="font-size: 15px"></span></a>
+                <a th:each="k : ${f.tags}" th:href="@{'/tag?tag='}+${k}"><span th:text="${k}" style="font-size: 15px;"></span></a>
             </td>
             <td ><a th:href="@{/bilde?bilde=}+${f.id}"><img th:src="@{/files/}+${f.filnavn}" style="max-width: 175px; max-height: 175px" /></a></td>
         </tr>

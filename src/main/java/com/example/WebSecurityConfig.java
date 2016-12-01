@@ -18,7 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository());
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/css/**","/files/**","/sok", "/script/**", "/nybruker", "/bilde", "/kommentar", "/tag", "/finn").permitAll()
+                .antMatchers("/", "/home", "/css/**","/files/**", "/script/**", "/nybruker", "/bilde", "/kommentar", "/tag", "/finn","/sok").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
